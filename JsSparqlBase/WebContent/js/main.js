@@ -23,7 +23,7 @@ $(window).load(function() {
 	});
 
 	$('#findLoc').click(function(event){
-		find_from_location($('#ep').val(), $('#lat').val(), $('#lng').val(), viewLocationResult);
+		find_from_location($('#ep').val(), $('#lat').val(), $('#lng').val(), viewLocationResult, 100);
 	});
 
 	$('#findWeather').click(function(event){

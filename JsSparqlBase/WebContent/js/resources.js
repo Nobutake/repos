@@ -82,8 +82,8 @@ var find_from_location = function(endpoint, lat, lng, cb, maxCount){
 		}
 
 	query +=
-' }\n' +
-' ORDER BY (((?lat  - ' + lat + ') * (?lat - ' + lat + ')) + ((?lng - ' + lng + ') * (?lng - ' + lng + '))) \n';
+' }\n'+
+	' ORDER BY (((?lat - ' + lat + ') * (?lat - ' + lat + ')) + ((?lng - ' + lng + ') * (?lng - ' + lng + '))) \n';
 
 	if (maxCount != undefined){
 		query += '  LIMIT '+ maxCount;

@@ -15,7 +15,7 @@ $(window).load(function() {
 			);
 		qr.done(
 			function (d) {
-				viewResult(d);
+				viewQueryResult(d);
 
 			}
 		);
@@ -26,10 +26,15 @@ $(window).load(function() {
 		find_from_location($('#lat').val(), $('#lng').val(), viewLocationResult);
 	});
 
+	$('#findWeather').click(function(event){
+		find_weather($('#lat').val(), $('#lng').val(), viewWeatherResult);
+		find_geotype($('#lat').val(), $('#lng').val(), viewGeotypeResult);
+	});
+
 });
 
 
-var viewResult = function(d){
+var viewQueryResult = function(d){
 	var result_div = $('#result_div');
 
 	var table = $('#result_list')[0];
@@ -176,4 +181,28 @@ var viewLocationResult = function(d, lat, lng){
 
 		 }
 	 }
+};
+
+var viewWeatherResult = function(d, lat, lng){
+	var html = '';
+	var condition = d.data.current_condition[0];
+
+	html += '<h2>' + condition.weatherDesc[0].value + '</h2>';
+	html += '温度：' + condition.temp_C + '℃<br>';
+	html += '湿度：' + condition.humidity + '％<br>';
+	html += '雲量：' + condition.cloudcover + '％<br>';
+	html += '視界：' + condition.visibility + 'フィート<br>';
+	html += '気圧：' + condition.pressure + ' hPa<br>';
+
+	$("#weather_div").html(html);
+};
+
+var viewGeotypeResult = function(d, lat, lng){
+	var html = '';
+	for (var i=0; i<d.length; i++){
+		html += d[i] + '<br>';
+	}
+
+	$("#geotype_div").html(html);
+
 };

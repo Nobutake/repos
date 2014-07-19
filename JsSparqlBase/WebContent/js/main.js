@@ -23,7 +23,7 @@ $(window).load(function() {
 	});
 
 	$('#findLoc').click(function(event){
-		find_from_location($('#lat').val(), $('#lng').val(), viewLocationResult);
+		find_from_location($('#ep').val(), $('#lat').val(), $('#lng').val(), viewLocationResult);
 	});
 
 	$('#findWeather').click(function(event){
@@ -191,8 +191,9 @@ var viewWeatherResult = function(d, lat, lng){
 	html += '温度：' + condition.temp_C + '℃<br>';
 	html += '湿度：' + condition.humidity + '％<br>';
 	html += '雲量：' + condition.cloudcover + '％<br>';
-	html += '視界：' + condition.visibility + 'フィート<br>';
+	html += '視界：' + condition.visibility + 'km<br>';
 	html += '気圧：' + condition.pressure + ' hPa<br>';
+	html += '風向：' + condition.winddir16Point + ' 風速：' + condition.windspeedKmph + ' km/h<br>';
 
 	$("#weather_div").html(html);
 };

@@ -104,7 +104,7 @@ var viewQueryResult = function(d){
 
 
 
-var viewLocationResult = function(d, lat, lng){
+var viewLocationResult = function(dd, lat, lng){
 	 var result_div = $('#result_div');
 
 	 var table = $('#result_list')[0];
@@ -128,13 +128,13 @@ var viewLocationResult = function(d, lat, lng){
 		 table.deleteRow(0);	// 行を追加
 	 }
 
-	 if (d.head != undefined && d.head.vars != null){
+	 if (dd.head != undefined && dd.head.vars != null){
 		 var header = table.createTHead();	// 行を追加
 		 var headerRow = header.insertRow(0);
 
-		 for (var i=0; i<d.head.vars.length; i++){
+		 for (var i=0; i<dd.head.vars.length; i++){
 			 var th = document.createElement('th');
-			 th.innerHTML = d.head.vars[i];
+			 th.innerHTML = dd.head.vars[i];
 			 headerRow.appendChild(th);
 		 }
 		 var th = document.createElement('th');
@@ -143,8 +143,8 @@ var viewLocationResult = function(d, lat, lng){
 
 	 }
 
-	 if (d.results != undefined && d.results.bindings instanceof Array){
-		 var data = d.results.bindings;
+	 if (dd.results != undefined && dd.results.bindings instanceof Array){
+		 var data = dd.results.bindings;
 		 result_div.show();
 		 // ヘッダ
 
@@ -153,11 +153,16 @@ var viewLocationResult = function(d, lat, lng){
 			 var row1 = table.insertRow(d+1);	// 行を追加
 
 
-			 var i=0;
 			 // ID
-			 for (var key in data[d]) {
+			 var i=0;
+//			 for (var key in data[d]) {
+			 for (var j=0; i<dd.head.vars.length; j++){
+				 var value = '';
+				 if (data[d][dd.head.vars[j]] != undefined){
+					 value = data[d][dd.head.vars[j]].value;
+				 }
 				 var cell = row1.insertCell(i++);	// ２つ目以降のセルを追加
-				 var value = data[d][key].value;
+//				 var value = data[d][key].value;
 
 				 if (value == null){
 					 value = '';

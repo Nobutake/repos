@@ -3,46 +3,6 @@
 
 
 
-/**
- * 座標を指定して、その位置から近い順にリソースをコールバック関数に返す
- * @param endpoint	エンドポイント
- * @param lat	lat
- * @param lng	long
- * @param cb	処理完了後のコールバック func(result, lat, lng)
- * @param maxCount	結果最大数(未指定の場合は100)
- */
-var find_from_location = function(endpoint, lat, lng, cb, maxCount){
-
-	if (maxCount == undefined){
-		maxCount = 100;
-	}
-
-	var query =
-		'select distinct ?s ?name ?lat ?lng {\n'+
-' ?s <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat;\n'+
-' <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lng;\n'+
-'  <http://www.w3.org/2000/01/rdf-schema#label> ?name.\n'+
-' }\n'+
-' ORDER BY (((?lat - ' + lat + ') * (?lat - ' + lat + ')) + ((?lng - ' + lng + ') * (?lng - ' + lng + '))) \n'+
-'  LIMIT '+ maxCount;
-
-
-	var qr = sendQuery(endpoint, query);
-
-	qr.fail(
-			function (xhr, textStatus, thrownError) {
-				alert("Error: A '" + textStatus+ "' occurred.");
-			}
-		);
-	qr.done(
-		function (d) {
-			if (cb != undefined){
-				cb(d, lat, lng);
-			}
-		}
-	);
- };
-
 
 /**
  * 座標を指定して、地形種別を取得・結果をコールバック関数に返す

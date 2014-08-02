@@ -21,7 +21,7 @@ var find_all = function(endpoint, cb, maxCount){
 '  <http://www.w3.org/2000/01/rdf-schema#label> ?name.\n';
 
 	for (var key in resource){
-		query += 'optional {?s <' + resource[key] + ' ?'+key + '.}\n';
+		query += 'optional {?s <' + resource[key] + '> ?'+key + '.}\n';
 	}
 
 	query +=
@@ -47,7 +47,7 @@ var find_all = function(endpoint, cb, maxCount){
  ' <http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lng;\n'+
  '  <http://www.w3.org/2000/01/rdf-schema#label> ?name.\n';
 	for (var key in resource){
-		query += 'optional {?s <' + resource[key] + ' ?'+key + '.}\n';
+		query += 'optional {?s <' + resource[key] + '> ?'+key + '.}\n';
 	}
 
 	query +=

@@ -85,6 +85,20 @@ var viewQueryResult = function(d){
 				var cell = row1.insertCell(i++);	// ２つ目以降のセルを追加
 				var value = data[d][key].value;
 
+				//
+					 if (data[d][key]['type'] == 'literal'){
+						 if (data[d][key]['xml:lang'] != undefined){
+							 value = '"' + value + '"@'+data[d][key]['xml:lang'];
+						 } else {
+							 value = '"' + value + '"^^&lt;http://www.w3.org/2001/XMLSchema#float&gt;';
+						 }
+					 } else {
+						 value = '&lt;'+value+'&gt;';
+					 }
+
+
+				//
+
 				if (value == null){
 					value = '';
 				}

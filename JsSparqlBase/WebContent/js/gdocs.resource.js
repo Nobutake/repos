@@ -4,7 +4,8 @@
 
 var sparql_ns = 'http://umania.kiteretz.com';
 
-var gdocs_url = 'https://docs.google.com/spreadsheet/ccc?key=1PeJXocWTGSoqWOESPscsvE9GZ5UxDjYmH5ZxgGbdrbM&usp=drive_web';
+//var gdocs_url = 'https://docs.google.com/spreadsheet/ccc?key=1PeJXocWTGSoqWOESPscsvE9GZ5UxDjYmH5ZxgGbdrbM&usp=drive_web';
+var gdocs_url = 'https://docs.google.com/spreadsheet/ccc?key=1luZzXczcVW7sIWqEAABRua41hnTQw6v4zS6dW6TDMt8&usp=drive_web';
 
 //付加情報（必須ではないもの）の名前とgoogledocsのカラム名を記述
 var resource = [];

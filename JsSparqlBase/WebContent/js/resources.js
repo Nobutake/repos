@@ -56,7 +56,8 @@ var find_all = function(endpoint, cb, maxCount){
  		query += '  LIMIT '+ maxCount;
  	}
 
- 	find_from_query(endpoint, lat, lng, cb, query);
+ 	// lat, lngは未指定
+ 	find_from_query(endpoint, null, null, cb, query);
 
   };
 

@@ -40,15 +40,35 @@ $(window).load(function() {
 			}
 			gdocs_resources.push(res);
 		}
-		var a;
 	}
 });
+
+/**
+ * すべてのリソースをコールバック関数に返す
+ * @param endpoint sparql版とのIF統一のために用意（利用しない）
+ * @param cb	処理完了後のコールバック func(result, lat, lng)
+ * @param maxCount	結果最大数(未指定の場合は全て)
+ */
+var find_all = function(endpoint, cb, maxCount){
+
+	var ret =  gdocs_resources.concat();
+
+	ret = makeDummyResultFromArray(ret, maxCount);
+
+	cb(ret);// lat, lngは常にnull
+
+	return ret;
+
+ };
 
 
 /**
  * 名前が部分一致したリソースをコールバック関数に返す
+ * @param endpoint sparql版とのIF統一のために用意（利用しない）
+ * @param name リソース名
  * @param cb	処理完了後のコールバック func(result, lat, lng)
  * @param maxCount	結果最大数(未指定の場合は全て)
+ * @param lang	取得言語（現バージョン未実装（常に日本語））
  */
 var find_from_name = function(endpoint, name, cb, maxCount, lang){
 
@@ -63,12 +83,14 @@ var find_from_name = function(endpoint, name, cb, maxCount, lang){
 
 	ret = makeDummyResultFromArray(ret, maxCount);
 
+	cb(ret); // lat, lngは常にnull
+
 	return ret;
  };
 
 /**
  * 座標を指定して、その位置から近い順にリソースをコールバック関数に返す
- * @param endpoint	エンドポイント
+ * @param endpoint sparql版とのIF統一のために用意（利用しない）
  * @param lat	lat
  * @param lng	long
  * @param cb	処理完了後のコールバック func(result, lat, lng)
@@ -76,13 +98,13 @@ var find_from_name = function(endpoint, name, cb, maxCount, lang){
  */
 var find_from_location = function(endpoint, lat, lng, cb, maxCount){
 
+	var ret = gdocs_resources.concat();
+
 	for (var i=0; i<gdocs_resources.length; i++){
-		var res = gdocs_resources[i];
+		var res = ret[i];
 		var distance = calc_distance(lat, lng, res.lat, res.lng);
 		res.distance = distance;
 	}
-
-	var ret = gdocs_resources.concat();
 
 	ret.sort(function(a, b){
 		return ( a.distance > b.distance ? 1 : -1);
@@ -93,6 +115,25 @@ var find_from_location = function(endpoint, lat, lng, cb, maxCount){
 	cb(ret, lat, lng);
 
  };
+
+ /**
+  * リソースを条件にヒットした順に並び替えてコールバック関数に返す
+  * @param endpoint sparql版とのIF統一のために用意（利用しない）
+  * @param cb	処理完了後のコールバック func(result, lat, lng)
+  * @param condition 検索（並び替え）条件
+  * @param maxCount	結果最大数(未指定の場合は全て)
+  */
+ var find_by_condition = function(endpoint, cb, condition, maxCount){
+
+ 	var ret =  gdocs_resources.concat();
+
+ 	ret = makeDummyResultFromArray(ret, maxCount);
+
+ 	cb(ret);// lat, lngは常にnull
+
+ 	return ret;
+
+  };
 
  function makeDummyResultFromArray(ary, count){
 	var ret ={};
